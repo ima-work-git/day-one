@@ -1,42 +1,49 @@
 # Day One — 過去の自分が、今の自分を救う。
 
-> **AWS Summit Japan 2026 AI-DLC ハッカソン出場作品**
-> テーマ：「人をダメにするサービスを考えよう！」
-
----
-
-## 🎯 Day Twoのあなたを、ダメにする。
-
 人は誰でも「Day One」を持っている。
 
 入社初日の熱量。ダイエットを決意した朝。試合で負けた悔しさ。
 あの瞬間の自分は、今の自分より強かった。
 
-でも時間が経つと、その感情は薄れる。
-「初心に戻れ」と言われても、どうすればいいかわからない。
+でも時間が経つと、その感情は薄れる。「初心に戻れ」と言われても、具体的にどうすればいいかわからない。
 
 **Day One は、過去の自分の声で今の自分に語りかける。**
-
-クローンボイス技術で再現された「あの日の自分」が、
-Day Twoになりかけているあなたに問いかける。
+クローンボイス技術で再現された「あの日の自分」が、Day Twoになりかけているあなたに問いかける。
 
 *「なぜ、始めたんだっけ？」*
 
-これが、Day Twoのあなたをダメにする（＝Day Oneに戻す）サービスです。
-
 ---
 
-## 🔗 AWSの「Day 1精神」との共鳴
+## AWSの「Day 1精神」との共鳴
 
 Amazonは創業以来、「常に Day 1 であれ」という精神を大切にしています。
-Day Oneは、その哲学を個人の人生に届けるサービスです。
+Day One は、その哲学を個人の人生に届けるサービスです。
 
 > *"Day 2 is stasis. Followed by irrelevance. Followed by excruciating, painful decline."*
 > — Jeff Bezos
 
 ---
 
-## 💡 こんな人に使ってほしい
+## どう動くか
+
+```
+1. 記録する（Day One）
+   ガイド付きフォーマットで「今の気持ち・動機・やりたいこと・
+   なりたくない自分」をテキストで入力する
+
+2. 声を残す
+   入力した文章を読み上げながら録音する
+   → クローンボイスが生成される
+
+3. 対話する（Day Two になったとき）
+   ホーム画面から話しかけたい「Day Oneの自分」を選択する
+   → 過去の自分の声（クローンボイス）がリアルタイムで語りかけてくる
+   → 双方向AI対話で、初心を取り戻す
+```
+
+---
+
+## こんな人に
 
 | シーン | Day One の使い方 |
 |---|---|
@@ -48,45 +55,26 @@ Day Oneは、その哲学を個人の人生に届けるサービスです。
 
 ---
 
-## 🛠️ どう動くか
+## 技術スタック
 
-```
-1. 記録する（Day One）
-   ガイド付きフォーマットで「今の気持ち・動機・やりたいこと・
-   なりたくない自分」をテキストで入力
-
-2. 声を残す
-   入力した文章を読み上げながら録音
-   → クローンボイスが生成される
-
-3. 対話する（Day Two になったとき）
-   ホーム画面から「Day Oneの自分と話す」を選択
-   → 過去の自分の声（クローンボイス）がリアルタイムで語りかけてくる
-   → 双方向AI対話で、初心を取り戻す
-```
-
----
-
-## 🏗️ 技術スタック
+すべて AWS 上で稼働するクラウドネイティブ設計。
 
 | レイヤー | 技術 |
 |---|---|
-| フロントエンド | Next.js / AWS Amplify |
-| バックエンド | AWS Lambda + API Gateway（サーバーレス） |
-| 音声認識（STT） | Amazon Transcribe |
-| LLM（応答生成） | Amazon Bedrock Nova 2 Lite |
-| クローンボイス（TTS） | ElevenLabs Flash v2.5（75ms・日本語対応） |
-| データベース | Amazon DynamoDB |
-| ストレージ | Amazon S3 |
-| 認証 | Amazon Cognito |
-| 通知 | Amazon SES + EventBridge |
-| IaC | AWS CDK（TypeScript）|
-
-**すべて AWS 上で稼働するクラウドネイティブ設計。**
+| フロントエンド | [Next.js](https://nextjs.org/) / [AWS Amplify](https://aws.amazon.com/amplify/) |
+| バックエンド | [AWS Lambda](https://aws.amazon.com/lambda/) + [API Gateway](https://aws.amazon.com/api-gateway/)（サーバーレス） |
+| 音声認識（STT） | [Amazon Transcribe](https://aws.amazon.com/transcribe/) |
+| LLM（応答生成） | [Amazon Bedrock Nova 2 Lite](https://aws.amazon.com/bedrock/) |
+| クローンボイス（TTS） | [ElevenLabs Flash v2.5](https://elevenlabs.io/)（75ms・日本語対応） |
+| データベース | [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) |
+| ストレージ | [Amazon S3](https://aws.amazon.com/s3/) |
+| 認証 | [Amazon Cognito](https://aws.amazon.com/cognito/) |
+| 通知 | [Amazon SES](https://aws.amazon.com/ses/) + [EventBridge](https://aws.amazon.com/eventbridge/) |
+| IaC | [AWS CDK](https://aws.amazon.com/cdk/)（TypeScript）|
 
 ---
 
-## 📊 ビジネスモデル
+## ビジネスモデル
 
 | セグメント | 提供価値 | 収益モデル |
 |---|---|---|
@@ -96,30 +84,15 @@ Day Oneは、その哲学を個人の人生に届けるサービスです。
 
 ---
 
-## 🎬 デモ戦略
-
-開発者自身が Day One ユーザーとして、**ダイエット目標を記録してサービスを実際に利用**。
-予選・決勝時点での体重変化・モチベーション維持の実績を「生きたデモ」として発表。
-
-*「作った人間が使って、実際に痩せた」— これ以上のデモはない。*
-
----
-
-## 📁 設計ドキュメント
+## ドキュメント
 
 | ドキュメント | 内容 |
 |---|---|
 | [要件定義書](aidlc-docs/inception/requirements/requirements.md) | 機能要件・非機能要件・ユーザーシナリオ |
 | [ペルソナ定義](aidlc-docs/inception/user-stories/personas.md) | 5つのユーザーペルソナ |
-| [ユーザーストーリー](aidlc-docs/inception/user-stories/stories.md) | 18本のユーザーストーリー・受け入れ基準 |
+| [ユーザーストーリー](aidlc-docs/inception/user-stories/stories.md) | ユーザーストーリー・受け入れ基準 |
 | [アプリケーション設計](aidlc-docs/inception/application-design/application-design.md) | コンポーネント構成・サービス定義・データフロー |
 | [Unit of Work](aidlc-docs/inception/application-design/unit-of-work.md) | 開発ユニット分割・実装優先順位 |
-
----
-
-## 👥 チーム
-
-AWS Summit Japan 2026 AI-DLC ハッカソン参加チーム
 
 ---
 
