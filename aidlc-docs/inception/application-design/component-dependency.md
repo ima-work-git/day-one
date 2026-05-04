@@ -113,14 +113,14 @@ C-02 REST API
 
 ## 外部サービス依存
 
-| 外部サービス | 用途 | 代替案 |
-|---|---|---|
-| **ElevenLabs Flash v2.5** | クローンボイス生成・TTS | Voxtral TTS（日本語非対応のため現時点では不可） |
-| **Amazon Transcribe** | STT（音声→テキスト） | Whisper API |
-| **Amazon Bedrock Nova 2 Lite** | LLM（応答生成） | Claude Haiku（コスト高） |
-| **Amazon Cognito** | 認証・認可 | Auth0 |
-| **Amazon SES** | メール通知 | SendGrid |
-| **Amazon EventBridge** | スケジューラー | CloudWatch Events |
+| 外部サービス | 用途 |
+|---|---|
+| **ElevenLabs Flash v2.5** | クローンボイス生成・TTS（日本語対応・75ms低レイテンシ） |
+| **Amazon Transcribe** | STT（音声→テキスト） |
+| **Amazon Bedrock Nova 2 Lite** | LLM（応答生成） |
+| **Amazon Cognito** | 認証・認可 |
+| **Amazon SES** | メール通知 |
+| **Amazon EventBridge** | スケジューラー |
 
 ---
 
