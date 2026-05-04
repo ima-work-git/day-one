@@ -1,11 +1,11 @@
-# コンポーネントメソッド定義 — Day One
+# コンポーネントメソッド定義 — Day 1
 
 ## C-02: REST API Lambda
 
 ### RecordingHandler
 
 ```typescript
-// Day One 記録作成
+// Day 1 記録作成
 createRecord(
   userId: string,
   input: {
@@ -146,7 +146,7 @@ cloneVoice(
 processTurn(
   sessionId: string,
   audioChunk: Buffer,          // ユーザー音声チャンク
-  context: ConversationContext // Day One 記録・対話履歴
+  context: ConversationContext // Day 1 記録・対話履歴
 ): Promise<{ audioChunk: Buffer, transcript: string }>
 
 // STT: 音声→テキスト
@@ -157,7 +157,7 @@ transcribeAudio(
 // LLM: 応答テキスト生成（Nova 2 Lite）
 generateResponse(
   userText: string,
-  systemPrompt: string,        // Day One 記録から構築
+  systemPrompt: string,        // Day 1 記録から構築
   conversationHistory: Message[]
 ): Promise<{ responseText: string }>
 
@@ -171,7 +171,7 @@ synthesizeSpeech(
 ### SystemPromptBuilder
 
 ```typescript
-// Day One 記録から System Prompt を構築
+// Day 1 記録から System Prompt を構築
 buildSystemPrompt(
   record: DayOneRecord
 ): string

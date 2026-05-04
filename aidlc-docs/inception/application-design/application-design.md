@@ -1,4 +1,4 @@
-# アプリケーション設計概要 — Day One
+# アプリケーション設計概要 — Day 1
 
 ## 設計サマリ
 
@@ -74,7 +74,7 @@
 
 | ID | サービス | 主な責務 |
 |---|---|---|
-| SVC-01 | RecordingService | Day One 記録 CRUD |
+| SVC-01 | RecordingService | Day 1 記録 CRUD |
 | SVC-02 | VoiceService | クローンボイス生成・対話処理 |
 | SVC-03 | UserService | ユーザー管理・BtoB招待 |
 | SVC-04 | FormTemplateService | フォーマットテンプレート管理 |
@@ -86,7 +86,7 @@
 
 ## 主要データフロー
 
-### Day One 記録作成フロー
+### Day 1 記録作成フロー
 ```
 Frontend → REST API → DynamoDB（記録保存）
                     → S3（Presigned URL発行）
@@ -115,7 +115,7 @@ EventBridge → Lambda → DynamoDB（対象取得）→ SES（メール送信�
 ## 技術選定の根拠
 
 ### Nova Sonic を採用しなかった理由
-Nova Sonic（初代・Nova 2 Sonic）は音声→音声の一体型モデルで低レイテンシだが、**日本語非対応**（英語・スペイン語・仏語・伊語・独語のみ）かつ**クローンボイスの差し込みが不可**。Day One のコアバリューである「過去の自分の声で語りかける」を実現できないため不採用。
+Nova Sonic（初代・Nova 2 Sonic）は音声→音声の一体型モデルで低レイテンシだが、**日本語非対応**（英語・スペイン語・仏語・伊語・独語のみ）かつ**クローンボイスの差し込みが不可**。Day 1 のコアバリューである「過去の自分の声で語りかける」を実現できないため不採用。
 
 ### ElevenLabs Flash v2.5 を選んだ理由
 - 日本語対応（32言語）

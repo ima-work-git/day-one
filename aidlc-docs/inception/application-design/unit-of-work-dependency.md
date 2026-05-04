@@ -1,4 +1,4 @@
-# Unit of Work 依存関係 — Day One
+# Unit of Work 依存関係 — Day 1
 
 ## 依存関係マトリクス
 

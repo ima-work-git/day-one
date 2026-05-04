@@ -1,4 +1,4 @@
-# Unit of Work 定義 — Day One
+# Unit of Work 定義 — Day 1
 
 ## 分割方針
 
@@ -65,7 +65,7 @@ day-one/                          # モノレポルート
   - Amazon Transcribe による STT（音声→テキスト）
   - Amazon Bedrock Nova 2 Lite による LLM 応答生成
   - ElevenLabs Flash v2.5 による TTS（クローンボイス音声合成）
-  - System Prompt Builder（Day One 記録から「過去の自分」プロンプト構築）
+  - System Prompt Builder（Day 1 記録から「過去の自分」プロンプト構築）
 - ElevenLabs Voice Cloning API 連携（クローンボイス生成）
 - 対話セッション管理（DynamoDB ConversationSessions）
 - 振り返りメモ保存 API
@@ -90,7 +90,7 @@ day-one/                          # モノレポルート
 
 **スコープ**:
 - ユーザー認証 API（Cognito 連携・JWT 検証）
-- Day One 記録 CRUD API（作成・取得・更新・削除）
+- Day 1 記録 CRUD API（作成・取得・更新・削除）
 - フォーマットテンプレート管理 API（デフォルト5種・カスタム保存）
 - S3 Presigned URL 発行 API（音声・画像・動画アップロード）
 - クローンボイス生成ジョブ起動・状態管理 API
@@ -113,8 +113,8 @@ day-one/                          # モノレポルート
 **スコープ**:
 - Next.js プロジェクト初期設定（App Router・Tailwind CSS）
 - 認証フロー（ログイン・登録・Cognito 連携）
-- ホーム画面（Day One 記録一覧・選択）
-- Day One 記録フォーム（ガイド付きフォーマット・カスタマイズ UI）
+- ホーム画面（Day 1 記録一覧・選択）
+- Day 1 記録フォーム（ガイド付きフォーマット・カスタマイズ UI）
 - 音声録音 UI（テキスト読み上げ収録・録音コントロール）
 - クローンボイス対話 UI（WebSocket 接続・音声ストリーミング再生）
 - リマインド設定 UI

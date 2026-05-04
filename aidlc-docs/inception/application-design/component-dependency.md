@@ -1,4 +1,4 @@
-# コンポーネント依存関係 — Day One
+# コンポーネント依存関係 — Day 1
 
 ## 依存関係マトリクス
 
@@ -17,7 +17,7 @@
 
 ## データフロー図
 
-### フロー1: Day One 記録作成
+### フロー1: Day 1 記録作成
 
 ```
 C-01 Frontend
@@ -51,7 +51,7 @@ C-04 WebSocket API
     v
 C-03 AI Pipeline
     |-- STT: Amazon Transcribe（音声→テキスト）
-    |-- Day One 記録取得 --> C-06 DynamoDB
+    |-- Day 1 記録取得 --> C-06 DynamoDB
     |-- LLM: Nova 2 Lite（応答テキスト生成）
     |-- TTS: ElevenLabs Flash v2.5（クローンボイス音声合成）
     |

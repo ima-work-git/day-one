@@ -1,4 +1,4 @@
-# コンポーネント定義 — Day One
+# コンポーネント定義 — Day 1
 
 ## アーキテクチャ概要
 
@@ -26,7 +26,7 @@
 ```
 ユーザー音声
     → Amazon Transcribe (STT: 音声→テキスト)
-    → Amazon Bedrock Nova 2 Lite (LLM: 「Day Oneの自分」として応答生成)
+    → Amazon Bedrock Nova 2 Lite (LLM: 「Day 1の自分」として応答生成)
     → ElevenLabs Flash v2.5 (TTS: クローンボイスで音声合成)
     → ユーザーへ音声出力
 ```
@@ -44,10 +44,10 @@
 | **責務** | ユーザーインターフェース全体の提供 |
 
 **主な責務**:
-- Day One 記録フォーム（ガイド付きフォーマット・カスタマイズ UI）
+- Day 1 記録フォーム（ガイド付きフォーマット・カスタマイズ UI）
 - 音声録音 UI（クローンボイス用テキスト読み上げ収録）
 - クローンボイス対話 UI（WebSocket 接続・音声ストリーミング再生）
-- ホーム画面（登録済み Day One 記録一覧・選択）
+- ホーム画面（登録済み Day 1 記録一覧・選択）
 - リマインド設定 UI
 - 認証フロー（Cognito 連携）
 
@@ -62,7 +62,7 @@
 
 **主な責務**:
 - ユーザー管理 API（登録・プロフィール・BtoB招待リンク発行）
-- Day One 記録 CRUD API
+- Day 1 記録 CRUD API
 - フォーマットテンプレート管理 API（デフォルト・カスタム）
 - クローンボイス生成ジョブの起動・状態管理
 - リマインドスケジュール管理 API
@@ -79,7 +79,7 @@
 
 **処理フロー**:
 1. **STT**: Amazon Transcribe でユーザー音声をテキスト変換
-2. **LLM**: Amazon Bedrock Nova 2 Lite で「Day Oneの自分」として応答テキスト生成（Day One 記録の文脈を System Prompt に注入）
+2. **LLM**: Amazon Bedrock Nova 2 Lite で「Day 1の自分」として応答テキスト生成（Day 1 記録の文脈を System Prompt に注入）
 3. **TTS**: ElevenLabs Flash v2.5 でクローンボイスによる音声合成（75ms レイテンシ）
 
 **クローンボイス生成**:
@@ -140,7 +140,7 @@ day-one-media/
 
 **主なテーブル**:
 - **Users**: ユーザープロフィール・アカウント種別（BtoB/BtoC）・企業紐付け
-- **DayOneRecords**: Day One 記録（フォーマット回答・メタデータ）
+- **DayOneRecords**: Day 1 記録（フォーマット回答・メタデータ）
 - **VoiceModels**: クローンボイスモデルの状態・ElevenLabs Voice ID
 - **ConversationSessions**: 対話セッション履歴・振り返りメモ
 - **RemindSchedules**: リマインドスケジュール設定

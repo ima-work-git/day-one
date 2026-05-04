@@ -1,13 +1,13 @@
-# サービス定義 — Day One
+# サービス定義 — Day 1
 
 ## サービス一覧
 
 ### SVC-01: RecordingService（記録サービス）
 
-**責務**: Day One 記録の作成・管理・フォーマット処理
+**責務**: Day 1 記録の作成・管理・フォーマット処理
 
 **エンドポイント**:
-- `POST /records` — 新規 Day One 記録作成
+- `POST /records` — 新規 Day 1 記録作成
 - `GET /records` — ユーザーの記録一覧取得
 - `GET /records/{recordId}` — 記録詳細取得
 - `PUT /records/{recordId}` — 記録更新
@@ -39,7 +39,7 @@
 **オーケストレーション（対話処理）**:
 1. WebSocket 経由でユーザー音声チャンクを受信
 2. Amazon Transcribe で音声→テキスト変換（STT）
-3. DynamoDB から Day One 記録を取得し System Prompt を構築
+3. DynamoDB から Day 1 記録を取得し System Prompt を構築
 4. Amazon Bedrock Nova 2 Lite で応答テキスト生成
 5. ElevenLabs Flash v2.5 でクローンボイス音声合成（TTS）
 6. 音声チャンクを WebSocket 経由でクライアントへストリーミング
