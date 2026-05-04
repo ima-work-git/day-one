@@ -1,0 +1,10 @@
+# Kiro IDE設定
+.kiro/
+
+# AI-DLC 内部作業ファイル（審査提出物に含めない）
+aidlc-docs/audit.md
+aidlc-docs/aidlc-state.md
+aidlc-docs/inception/plans/
+
+# 初期アイデアメモ（内部資料）
+idea.md
