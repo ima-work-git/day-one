@@ -179,7 +179,7 @@ buildSystemPrompt(
 //      以下の記録に基づいて、当時の気持ちで話してください:
 //      動機: {motivation}
 //      やりたいこと: {goals}
-//      なりたくない人物像: {antiPersona}
+//      なりたい人物像・なりたくない人物像: {persona}
 //      ..."
 ```
 
