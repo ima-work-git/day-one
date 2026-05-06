@@ -123,10 +123,10 @@
 **バケット構成**:
 ```
 day-one-media/
-├── users/{userId}/recordings/     # クローンボイス用音声
-├── users/{userId}/photos/         # 写真
-├── users/{userId}/videos/         # 動画
-└── voice-models/{userId}/         # ElevenLabs Voice ID メタデータ
+├── users/{userId}/records/{recordId}/recordings/   # クローンボイス用音声（recordIdごとに分離）
+├── users/{userId}/records/{recordId}/photos/       # 写真
+├── users/{userId}/records/{recordId}/videos/       # 動画
+└── users/{userId}/voice-models/{voiceModelId}/     # ElevenLabs Voice ID メタデータ
 ```
 
 ---
