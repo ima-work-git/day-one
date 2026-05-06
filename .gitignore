@@ -16,3 +16,6 @@ idea.md
 *api_key*
 *.env
 .env*
+
+# Claude Code設定（無視）
+10_claudecode/
