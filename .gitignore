@@ -8,3 +8,11 @@ aidlc-docs/inception/plans/
 
 # 初期アイデアメモ（内部資料）
 idea.md
+
+# APIキー・認証情報（絶対にコミットしない）
+11_API_keys/
+*.txt
+*apikey*
+*api_key*
+*.env
+.env*
