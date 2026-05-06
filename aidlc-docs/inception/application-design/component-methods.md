@@ -132,9 +132,10 @@ generateDownloadUrl(
 ### VoiceCloningProcessor
 
 ```typescript
-// ElevenLabs クローンボイス生成
+// ElevenLabs クローンボイス生成（Instant Voice Cloning）
+// POST /v1/voices/add - 音声ファイルのみ必要（テキスト不要）
 cloneVoice(
-  audioS3Key: string,
+  audioS3Key: string,   // S3 から取得した音声ファイル（最低30秒・推奨1〜2分）
   voiceName: string
 ): Promise<{ elevenLabsVoiceId: string }>
 ```
@@ -162,6 +163,9 @@ generateResponse(
 ): Promise<{ responseText: string }>
 
 // TTS: クローンボイス音声合成（ElevenLabs Flash v2.5）
+// POST /v1/text-to-speech/{voice_id}/stream
+// model_id: eleven_flash_v2_5, output_format: mp3_22050_32
+// apply_language_text_normalization: false（日本語でtrueにするとレイテンシ大幅増加）
 synthesizeSpeech(
   text: string,
   elevenLabsVoiceId: string
