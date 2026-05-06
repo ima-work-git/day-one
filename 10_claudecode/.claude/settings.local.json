@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "WebSearch",
-      "Bash(aws bedrock *)",
-      "Bash(curl *)"
-    ]
-  }
-}
