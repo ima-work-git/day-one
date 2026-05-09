@@ -104,7 +104,7 @@
 
 ### SVC-06: ConversationService（対話セッションサービス）
 
-**責務**: 対話セッションの管理・履歴保存
+**責務**: 対話セッションの管理・履歴保存・会話記憶の構造化（フェーズ2）
 
 **エンドポイント**:
 - `POST /conversations` — 対話セッション開始
@@ -114,9 +114,11 @@
 
 **オーケストレーション**:
 1. セッション開始時に DayOneRecord を取得し System Prompt を構築
-2. WebSocket セッション ID を発行
-3. VoiceService に対話処理を委譲
-4. セッション終了時に履歴を DynamoDB（ConversationSessions）に保存
+2. 【フェーズ2】直近3件の SessionSummary を取得して System Prompt に追加注入
+3. WebSocket セッション ID を発行
+4. VoiceService に対話処理を委譲
+5. セッション終了時に履歴を DynamoDB（ConversationSessions）に保存
+6. 【フェーズ2】セッション終了後、非同期で Nova 2 Lite を呼び出して SessionSummary を自動生成・保存
 
 ---
 

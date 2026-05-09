@@ -175,16 +175,24 @@ synthesizeSpeech(
 ### SystemPromptBuilder
 
 ```typescript
-// Day 1 記録から System Prompt を構築
+// Day 1 記録から System Prompt を構築（MVP）
 buildSystemPrompt(
   record: DayOneRecord
 ): string
-// 例: "あなたは{userName}の{recordDate}時点の自分です。
-//      以下の記録に基づいて、当時の気持ちで話してください:
-//      動機: {motivation}
-//      やりたいこと: {goals}
-//      なりたい人物像・なりたくない人物像: {persona}
-//      ..."
+
+// 【フェーズ2】前回会話の記憶を含む System Prompt を構築
+buildSystemPromptWithMemory(
+  record: DayOneRecord,
+  recentSummaries: SessionSummary[]  // 直近3件のSessionSummary
+): string
+// 冒頭の問いかけに openQuestions[0] を使用
+// 例: "前回、転職を考えていると言っていましたね。その後どうですか？"
+
+// 【フェーズ2】対話終了後にSessionSummaryを非同期生成
+generateSessionSummary(
+  sessionId: string,
+  messages: Message[]
+): Promise<SessionSummary>
 ```
 
 ---
@@ -267,7 +275,17 @@ type DayOneRecord = {
 type ConversationContext = {
   record: DayOneRecord,
   history: Message[],
-  elevenLabsVoiceId: string
+  elevenLabsVoiceId: string,
+  recentSummaries?: SessionSummary[]  // 【フェーズ2】直近の会話サマリ
+}
+
+// 【フェーズ2】会話記憶の構造化型
+type SessionSummary = {
+  keyTopics: string[],      // 話題になったキーワード
+  emotionalState: string,   // ユーザーの感情状態
+  insights: string[],       // 気づき・決意
+  openQuestions: string[],  // 次回に続けたい問い
+  generatedAt: string
 }
 
 type Message = {
