@@ -227,12 +227,11 @@ lambdaRole.addToPolicy(new PolicyStatement({
   resources: ['*'],
 }));
 
-// Bedrock（クロスリージョン推論 - Nova 2 Lite は us-east-1 経由でアクセス）
+// Bedrock（クロスリージョン推論 - Nova 2 Lite は us.amazon.nova-lite-v2:0 プロファイル経由）
 lambdaRole.addToPolicy(new PolicyStatement({
   actions: ['bedrock:InvokeModel', 'bedrock:InvokeModelWithResponseStream'],
   resources: [
-    'arn:aws:bedrock:us-east-1::foundation-model/amazon.nova-lite-v2:0',
-    // クロスリージョン推論プロファイル
+    // クロスリージョン推論プロファイル（ap-northeast-1 から US リージョンの Nova 2 Lite を利用）
     'arn:aws:bedrock:ap-northeast-1:*:inference-profile/us.amazon.nova-lite-v2:0',
   ],
 }));
@@ -267,6 +266,8 @@ const amplifyApp = new amplify.App(this, 'Day1App', {
     repository: 'day-one',
     oauthToken: SecretValue.secretsManager('day1/github-token'),
   }),
+  // 注意: GitHub 連携には @aws-cdk/aws-amplify-alpha パッケージが必要
+  // npm install @aws-cdk/aws-amplify-alpha
   environmentVariables: {
     NEXT_PUBLIC_REGION: 'ap-northeast-1',
     NEXT_PUBLIC_USER_POOL_ID: cognitoStack.userPool.userPoolId,
