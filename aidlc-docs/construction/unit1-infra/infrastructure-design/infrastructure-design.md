@@ -227,10 +227,14 @@ lambdaRole.addToPolicy(new PolicyStatement({
   resources: ['*'],
 }));
 
-// Bedrock
+// Bedrock（クロスリージョン推論 - Nova 2 Lite は us-east-1 経由でアクセス）
 lambdaRole.addToPolicy(new PolicyStatement({
   actions: ['bedrock:InvokeModel', 'bedrock:InvokeModelWithResponseStream'],
-  resources: ['arn:aws:bedrock:ap-northeast-1::foundation-model/amazon.nova-lite-v2:0'],
+  resources: [
+    'arn:aws:bedrock:us-east-1::foundation-model/amazon.nova-lite-v2:0',
+    // クロスリージョン推論プロファイル
+    'arn:aws:bedrock:ap-northeast-1:*:inference-profile/us.amazon.nova-lite-v2:0',
+  ],
 }));
 
 // Transcribe

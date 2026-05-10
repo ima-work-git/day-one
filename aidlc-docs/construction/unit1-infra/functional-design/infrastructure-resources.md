@@ -21,13 +21,19 @@ infra/
 ├── bin/
 │   └── day1.ts              # CDK アプリエントリポイント
 └── lib/
-    ├── day1-stack.ts         # メインスタック（全リソースを統合）
-    ├── dynamodb-stack.ts     # DynamoDB テーブル定義
-    ├── s3-stack.ts           # S3 バケット定義
-    ├── cognito-stack.ts      # Cognito User Pool 定義
-    ├── api-gateway-stack.ts  # API Gateway（REST + WebSocket）スタブ
-    ├── ses-stack.ts          # SES 設定
-    └── eventbridge-stack.ts  # EventBridge Scheduler 設定
+    ├── day1-stack.ts         # メインスタック（全スタックを統合）
+    ├── stacks/
+    │   ├── dynamodb-stack.ts     # DynamoDB テーブル定義
+    │   ├── s3-stack.ts           # S3 バケット定義
+    │   ├── cognito-stack.ts      # Cognito User Pool 定義
+    │   ├── api-gateway-stack.ts  # API Gateway（REST + WebSocket）スタブ
+    │   ├── lambda-stack.ts       # Lambda 関数定義（スタブ）
+    │   ├── ses-stack.ts          # SES 設定
+    │   ├── eventbridge-stack.ts  # EventBridge Scheduler 設定
+    │   ├── iam-stack.ts          # IAM ロール・ポリシー
+    │   └── amplify-stack.ts      # Amplify ホスティング
+    └── constructs/
+        └── lambda-function.ts    # Lambda 共通コンストラクト
 ```
 
 ---
