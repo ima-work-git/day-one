@@ -49,7 +49,22 @@ Lambda → API Gateway WebSocket → クライアント（逐次転送）
 ## レイテンシ最適化ルール
 
 ### 目標: 応答開始まで 2〜3 秒以内
-- Transcribe: ストリーミングで逐次テキスト化（最終確定を待たない）
-- Nova 2 Lite: ストリーミングレスポンス（`InvokeModelWithResponseStream`）
-- ElevenLabs: HTTP Streaming（最初のチャンクが届いたら即再生開始）
+- **Transcribe**: Final Results のみ使用（`IsPartial: false` のイベントのみ処理）
+  - 発話終了から 0.5〜1秒で確定テキストが得られる
+  - 中間結果（Partial）は精度が低いため使用しない
+- **Nova 2 Lite**: ストリーミングレスポンス（`InvokeModelWithResponseStream`）で最初のトークンが来たら即 TTS へ
+- **ElevenLabs**: HTTP Streaming（最初のチャンクが届いたら即再生開始）
 - `apply_language_text_normalization: false`（日本語でのレイテンシ増加を防ぐ）
+
+### レイテンシ内訳（目安）
+| ステージ | 時間 |
+|---|---|
+| Transcribe Final Result 確定 | 0.5〜1秒 |
+| Nova 2 Lite 最初のトークン | 0.3〜0.7秒 |
+| ElevenLabs 最初の音声チャンク | 0.1〜0.2秒 |
+| WebSocket 転送 | ~0.05秒 |
+| **合計（応答開始まで）** | **約 1〜2秒** |
+
+### コールドスタート対策
+- Lambda Provisioned Concurrency を ws-message-handler に設定（デモ前に必須）
+- または事前ウォームアップリクエストを送る

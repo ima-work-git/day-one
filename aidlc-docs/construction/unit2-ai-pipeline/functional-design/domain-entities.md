@@ -25,9 +25,23 @@ const transcribeConfig = {
   LanguageCode: 'ja-JP',
   MediaSampleRateHertz: 16000,
   MediaEncoding: 'pcm',
-  EnablePartialResultsStabilization: true,
-  PartialResultsStability: 'high',
+  // Final Results のみを使用する方針
+  // - Partial Results（中間結果）は精度が低く書き換わるため使用しない
+  // - Final Results は発話が一区切りついた（無音 0.5〜1秒）時点で確定
+  // - 高精度なテキストが得られてから LLM に送る
+  // - 結果: ユーザー発話終了から 0.5〜1秒後に LLM 処理開始
 };
+```
+
+**STT 処理フロー：**
+```
+ユーザーが話す（音声チャンクを WebSocket 経由で送信）
+    ↓
+Transcribe Streaming がリアルタイムで処理
+    ↓
+発話が一区切りついたら（無音 0.5〜1秒）→ IsPartial: false の Final Result が返る
+    ↓
+Final Result のテキストを LLM（Nova 2 Lite）に送る
 ```
 
 ## ElevenLabs TTS リクエスト
