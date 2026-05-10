@@ -1,4 +1,4 @@
-# Unit of Work 質問 — Day One
+# Unit of Work 質問 — Day 1
 
 システムを並行開発可能なユニットに分解するための質問です。
 各質問の `[Answer]:` の後に選択肢のアルファベットを記入してください。
@@ -36,7 +36,7 @@ B) 機能ドメイン別（記録機能 / 音声対話機能 / ユーザー管�
 C) ハイブリッド（コアAI機能を独立させ、残りはレイヤー別）
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: D。今回の事情に合わせてのおすすめを教えなさい。
+[Answer]: B。機能ドメイン別に分割し、コアAI対話パイプラインを独立したユニットとして優先する。
 
 ---
 
@@ -48,7 +48,7 @@ B) ユーザー体験優先（記録フォーム・認証・基本UIを最初に
 C) インフラ優先（AWS環境・DynamoDB・S3・Cognitoを最初に構築）
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: A。本当に最低限の、ユーザが発話して、STT->LLM->TTS、で会話できるようにすることからです。まずはURLを発行してそのwebサイト上で会話できるようにする。
+[Answer]: A。まずユーザーがWeb上で発話し、STT → LLM → TTS の会話が成立する最小デモを実装する。
 
 ---
 

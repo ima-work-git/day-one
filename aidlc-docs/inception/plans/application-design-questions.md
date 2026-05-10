@@ -1,6 +1,6 @@
 # アプリケーション設計 質問
 
-Day One のコンポーネント・サービス設計を決めるための質問です。
+Day 1 のコンポーネント・サービス設計を決めるための質問です。
 各質問の `[Answer]:` の後に選択肢のアルファベットを記入してください。
 
 ---
@@ -27,7 +27,7 @@ C) Vue.js / Nuxt.js
 D) まだ決めていない（設計後に選定）
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: D。今回のプロジェクト/MVPに最適なものあなたが提案しろ
+[Answer]: A。MVPでは Next.js（App Router）を採用する。
 
 ---
 
@@ -40,7 +40,7 @@ C) AWS Lambda などサーバーレス関数として実装
 D) まだ決めていない
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: D。クローンボイス生成はBedrockでは厳しい？huggingfaceに挙がっているものならできないのかな。もしくはクローンボイスttsを取り扱っているAPI使おうかな。2026/05/04時点で日本語でおすすめある？LLMはBedrock想定。Nova 2 Liteはどうか。速くしたい。
+[Answer]: C。AI処理は Lambda ベースで実装する。LLM は Amazon Bedrock Nova 2 Lite、STT は Amazon Transcribe、クローンボイス生成・TTS は ElevenLabs Flash v2.5 を採用する。
 
 ---
 
@@ -53,7 +53,7 @@ C) REST API のポーリング（シンプルだがリアルタイム性が低�
 D) まだ決めていない
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: A。これが現実的なのでは？簡単確実かつ早い他の選択肢あれば教えて。
+[Answer]: A。リアルタイム対話には WebSocket を採用する。
 
 ---
 
@@ -66,7 +66,7 @@ C) DynamoDB のみ（フルサーバーレス構成）
 D) まだ決めていない
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: C。かなあ。Question1の回答と合うのはCの気がする。
+[Answer]: C。サーバーレス構成との整合性を優先し、DynamoDB のみを採用する。
 
 ---
 
@@ -79,7 +79,7 @@ C) Auth0 などサードパーティ認証サービス
 D) まだ決めていない
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: A。簡単確実なのがいい。
+[Answer]: A。Amazon Cognito を採用する。
 
 ---
 
@@ -91,7 +91,7 @@ B) クライアント → バックエンドAPI → S3 → Lambda でポスト�
 C) まだ決めていない
 D) Other (please describe after [Answer]: tag below)
 
-[Answer]: 簡単確実な方法。Aではないの？
+[Answer]: A。S3 Presigned URL による直接アップロードを採用する。
 
 ---
 
@@ -104,4 +104,4 @@ C) サードパーティ通知サービス（SendGrid、Firebase Cloud Messaging
 D) まだ決めていない
 E) Other (please describe after [Answer]: tag below)
 
-[Answer]: MVPではBかなあ。将来プッシュ通知までしたいね。
+[Answer]: B。MVPでは Amazon SES によるメール通知のみとし、プッシュ通知はフェーズ2以降で検討する。

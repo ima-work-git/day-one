@@ -1,0 +1,25 @@
+{
+  "name": "day1-infra",
+  "version": "0.1.0",
+  "bin": {
+    "day1": "bin/day1.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "cdk": "cdk",
+    "deploy": "cdk deploy --all",
+    "diff": "cdk diff",
+    "synth": "cdk synth"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "aws-cdk": "^2.251.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-amplify-alpha": "^2.251.0-alpha.0",
+    "aws-cdk-lib": "^2.251.0",
+    "constructs": "^10.0.0"
+  }
+}

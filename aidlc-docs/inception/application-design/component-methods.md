@@ -52,14 +52,14 @@ getVoiceCloningStatus(
 // プロフィール取得
 getProfile(userId: string): Promise<UserProfile>
 
-// BtoB 招待リンク発行
+// 【フェーズ2】BtoB 招待リンク発行
 createInviteLink(
   organizationId: string,
   emails: string[],
   expiresInDays?: number   // デフォルト7日
 ): Promise<{ inviteLinks: InviteLink[] }>
 
-// 招待リンク経由アカウント作成
+// 【フェーズ2】招待リンク経由アカウント作成
 joinOrganization(
   inviteToken: string,
   input: { name: string, password: string }
@@ -82,7 +82,7 @@ saveCustomTemplate(
   }
 ): Promise<{ templateId: string }>
 
-// 組織テンプレート設定（BtoB管理者）
+// 【フェーズ2】組織テンプレート設定（BtoB管理者）
 setOrganizationTemplate(
   organizationId: string,
   input: {
@@ -234,7 +234,7 @@ sendReminderEmail(
 // クローンボイス生成完了通知
 sendVoiceReadyEmail(userId: string): Promise<void>
 
-// BtoB 招待メール送信
+// 【フェーズ2】BtoB 招待メール送信
 sendInviteEmail(
   email: string,
   inviteToken: string,
@@ -257,7 +257,7 @@ type FormItem = {
   id: string,
   question: string,
   isRequired: boolean,
-  isLocked: boolean,    // BtoB 必須項目はロック
+  isLocked: boolean,    // MVP研修テンプレート・BtoB必須項目はロック
   order: number
 }
 

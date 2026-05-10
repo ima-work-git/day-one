@@ -48,16 +48,20 @@
 
 ### SVC-03: UserService（ユーザーサービス）
 
-**責務**: ユーザー管理・認証・BtoB 招待
+**責務**: ユーザー管理・認証。BtoB 招待はフェーズ2で対応
 
 **エンドポイント**:
 - `POST /users/register` — ユーザー登録
 - `GET /users/me` — プロフィール取得
 - `PUT /users/me` — プロフィール更新
-- `POST /organizations/invite` — BtoB 招待リンク発行
-- `POST /organizations/join` — 招待リンク経由でのアカウント作成
+- `POST /organizations/invite` — 【フェーズ2】BtoB 招待リンク発行
+- `POST /organizations/join` — 【フェーズ2】招待リンク経由でのアカウント作成
 
-**オーケストレーション（BtoB 招待）**:
+**MVP の扱い**:
+1. 研修参加者は通常登録、デモアカウント、または運営者が共有する参加リンクから利用
+2. 企業紐付け・一括招待・招待トークン管理は実装しない
+
+**オーケストレーション（BtoB 招待・フェーズ2）**:
 1. 管理者が招待メールアドレスを登録
 2. Cognito でユーザーを事前登録（FORCE_CHANGE_PASSWORD 状態）
 3. 招待リンク（トークン付き）を生成
@@ -75,12 +79,13 @@
 - `GET /templates/{templateId}` — テンプレート詳細取得
 - `POST /templates/custom` — カスタムテンプレート保存
 - `PUT /templates/custom/{templateId}` — カスタムテンプレート更新
-- `POST /organizations/templates` — 組織用テンプレート設定（BtoB管理者）
+- `POST /organizations/templates` — 【フェーズ2】組織用テンプレート設定（BtoB管理者）
 
 **テンプレート種別**:
 - デフォルト（汎用・企業研修・スポーツ・受験・ダイエット）
 - ユーザーカスタム（BtoC: 最大5項目追加）
-- 組織テンプレート（BtoB管理者設定: 必須項目ロック・追加上限設定）
+- MVP 研修テンプレート（運営者が選んだ企業研修用デフォルトを固定利用）
+- 組織テンプレート（フェーズ2: BtoB管理者設定、必須項目ロック・追加上限設定）
 
 ---
 
@@ -93,6 +98,11 @@
 - `GET /reminders` — スケジュール一覧取得
 - `PUT /reminders/{reminderId}` — スケジュール更新
 - `DELETE /reminders/{reminderId}` — スケジュール削除
+
+**MVP の扱い**:
+1. 研修用の再会導線は運営者がリンクまたは簡易メールで共有
+2. ユーザー自身の簡易リマインドのみ対象
+3. 企業管理者による一括自動配信はフェーズ2
 
 **オーケストレーション（リマインド実行）**:
 1. EventBridge Scheduler がスケジュール時刻に Lambda を起動
@@ -129,7 +139,7 @@
 **内部 API**（他サービスから呼び出し）:
 - `sendReminderEmail(userId, recordId)` — リマインドメール送信
 - `sendVoiceReadyEmail(userId)` — クローンボイス生成完了通知
-- `sendInviteEmail(email, inviteToken)` — BtoB 招待メール送信
+- `sendInviteEmail(email, inviteToken)` — 【フェーズ2】BtoB 招待メール送信
 
 **将来拡張**:
 - Amazon SNS によるプッシュ通知対応

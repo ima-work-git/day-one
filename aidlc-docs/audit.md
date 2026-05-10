@@ -191,3 +191,35 @@
 **Context**: INCEPTION - Units Generation 完了、承認待ち
 
 ---
+
+## Construction - Unit 1 Functional Design 完了
+**Timestamp**: 2026-05-04T01:00:00Z
+**User Input**: "回答しました"
+**AI Response**: Unit 1 Functional Design 成果物を生成。infrastructure-resources.md・domain-entities.md・business-rules.md を作成。Q1→TypeScript、Q2→東京、Q3→dev単一環境、Q4→オンデマンド、Q5→メール認証のみ、Q6→SESサンドボックス、Q7→Amplifyはコンソール設定。
+**Context**: CONSTRUCTION - Unit 1 Functional Design 完了、承認待ち
+
+---
+
+## Unit 1 Functional Design - 承認
+**Timestamp**: 2026-05-04T02:00:00Z
+**User Input**: "Functional Design を承認します"
+**AI Response**: Unit 1 Functional Design を承認。NFR Requirements へ進行。
+**Context**: CONSTRUCTION - Unit 1 Functional Design 完了、NFR Requirements 開始
+
+---
+
+## Unit 1 NFR Requirements - 承認
+**Timestamp**: 2026-05-04T03:00:00Z
+**User Input**: "NFR Requirements を承認します"
+**AI Response**: Unit 1 NFR Requirements を承認。Infrastructure Design へ進行。
+**Context**: CONSTRUCTION - Unit 1 NFR Requirements 完了、Infrastructure Design 開始
+
+---
+
+## Unit 1 Infrastructure Design - 承認
+**Timestamp**: 2026-05-04T04:00:00Z
+**User Input**: "Infrastructure Design を承認します"
+**AI Response**: Unit 1 Infrastructure Design を承認。Code Generation へ進行。
+**Context**: CONSTRUCTION - Unit 1 Infrastructure Design 完了、Code Generation 開始
+
+---

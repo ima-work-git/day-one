@@ -41,7 +41,7 @@ day-one/                          # モノレポルート
 - AWS CDK によるインフラ定義（IaC）
 - DynamoDB テーブル作成（Users・DayOneRecords・VoiceModels・ConversationSessions・RemindSchedules・FormTemplates・Organizations）
 - S3 バケット作成・バケットポリシー設定
-- Amazon Cognito User Pool 設定（BtoB/BtoC・Google ソーシャルログイン）
+- Amazon Cognito User Pool 設定（MVPは個人単位の簡易登録・Google ソーシャルログイン、BtoB企業紐付けはフェーズ2）
 - API Gateway（REST + WebSocket）のスタブ作成
 - Amazon SES ドメイン検証・送信設定
 - EventBridge Scheduler 設定
@@ -91,12 +91,13 @@ day-one/                          # モノレポルート
 **スコープ**:
 - ユーザー認証 API（Cognito 連携・JWT 検証）
 - Day 1 記録 CRUD API（作成・取得・更新・削除）
-- フォーマットテンプレート管理 API（デフォルト5種・カスタム保存）
+- フォーマットテンプレート管理 API（MVPはデフォルト5種・カスタム保存、組織テンプレートはフェーズ2）
 - S3 Presigned URL 発行 API（音声・画像・動画アップロード）
 - クローンボイス生成ジョブ起動・状態管理 API
-- リマインドスケジュール管理 API
-- BtoB 招待リンク発行 API（MVP 簡易版：手動リンク共有）
-- 通知 Lambda（SES メール送信：リマインド・生成完了・招待）
+- リマインドスケジュール管理 API（MVPは個人簡易設定、BtoB一括配信はフェーズ2）
+- 研修用参加リンク・デモアカウント運用（MVPは運営者が手動共有）
+- BtoB 招待リンク発行 API（フェーズ2）
+- 通知 Lambda（SES メール送信：リマインド・生成完了。BtoB招待はフェーズ2）
 
 **完了条件**:
 - 記録の作成・取得・削除が API 経由で動作する
@@ -115,9 +116,9 @@ day-one/                          # モノレポルート
 - 認証フロー（ログイン・登録・Cognito 連携）
 - ホーム画面（Day 1 記録一覧・選択）
 - Day 1 記録フォーム（ガイド付きフォーマット・カスタマイズ UI）
-- 音声録音 UI（テキスト読み上げ収録・録音コントロール）
+- 音声録音 UI（クローンボイス用音声収録・録音コントロール・参考テキスト表示）
 - クローンボイス対話 UI（WebSocket 接続・音声ストリーミング再生）
-- リマインド設定 UI
+- リマインド設定 UI（MVPは個人簡易設定・研修用リンク導線）
 - 振り返りメモ入力 UI
 
 **完了条件**:

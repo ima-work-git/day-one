@@ -6,12 +6,12 @@
 |---|---|
 | **バックエンド** | サーバーレス（AWS Lambda + API Gateway） |
 | **フロントエンド** | Next.js（App Router）/ AWS Amplify |
-| **LLM** | Amazon Bedrock Nova 2 Lite（$0.08/$0.32 per 1M tokens） |
+| **LLM** | Amazon Bedrock Nova 2 Lite（1M context、価格はBedrock Pricingに準拠） |
 | **TTS** | ElevenLabs Flash v2.5（日本語対応・75ms・クローンボイス対応） |
 | **STT** | Amazon Transcribe |
 | **データベース** | Amazon DynamoDB（フルサーバーレス構成） |
 | **ストレージ** | Amazon S3（Presigned URL） |
-| **認証** | Amazon Cognito（BtoB招待リンク対応） |
+| **認証** | Amazon Cognito（MVPは簡易登録・デモリンク、BtoB招待リンクはフェーズ2） |
 | **通知** | Amazon SES（MVP）→ 将来 SNS プッシュ通知追加 |
 | **リアルタイム通信** | WebSocket（API Gateway WebSocket API） |
 
@@ -76,7 +76,7 @@
 |---|---|---|
 | SVC-01 | RecordingService | Day 1 記録 CRUD |
 | SVC-02 | VoiceService | クローンボイス生成・対話処理 |
-| SVC-03 | UserService | ユーザー管理・BtoB招待 |
+| SVC-03 | UserService | ユーザー管理・BtoB招待（フェーズ2） |
 | SVC-04 | FormTemplateService | フォーマットテンプレート管理 |
 | SVC-05 | RemindService | リマインドスケジュール管理 |
 | SVC-06 | ConversationService | 対話セッション管理・履歴保存 |
@@ -106,7 +106,8 @@ Frontend → WebSocket API → AI Pipeline
 
 ### リマインドフロー
 ```
-EventBridge → Lambda → DynamoDB（対象取得）→ SES（メール送信）
+MVP: 運営者が研修用リンクまたは簡易メールを共有
+フェーズ2: EventBridge → Lambda → DynamoDB（対象取得）→ SES（メール送信）
 → ユーザーがリンクをクリック → 対話フロー開始
 ```
 
@@ -114,14 +115,15 @@ EventBridge → Lambda → DynamoDB（対象取得）→ SES（メール送信�
 
 ## 技術選定の根拠
 
-### Nova Sonic を採用しなかった理由
-Nova Sonic（初代・Nova 2 Sonic）は音声→音声の一体型モデルで低レイテンシだが、**日本語非対応**（英語・スペイン語・仏語・伊語・独語のみ）かつ**クローンボイスの差し込みが不可**。Day 1 のコアバリューである「過去の自分の声で語りかける」を実現できないため不採用。
+### Nova 2 Sonic を採用しなかった理由
+Amazon Nova 2 Sonic（2025/12 リリース）は speech-to-speech 一体型モデルで低レイテンシのリアルタイム会話 AI を実現するが、Day 1 では採用しない。**決定的理由はクローンボイス機能がないこと** — Nova 2 Sonic は内蔵音声で応答するモデルで、特定話者（本人）の音声クローンを差し込む API がない。Day 1 のコアバリューである「過去の自分の声で応えてくれる双方向対話」を実現できないため不採用。加えて日本語は公式サポート外（英語・スペイン語・ドイツ語・フランス語・イタリア語・ポルトガル語・ヒンディー語のみ）。
 
 ### ElevenLabs Flash v2.5 を選んだ理由
-- 日本語対応（32言語）
+- 日本語対応（32 言語）
 - 75ms の超低レイテンシ（リアルタイム対話に十分）
-- クローンボイス生成 API が利用可能
-- Starter $5/月からスタート可能
+- クローンボイス生成 API（Instant Voice Cloning：30 秒〜2 分の音声サンプル）
+- 有料プランで商用利用可（最新条件は ElevenLabs 利用規約・料金ページに準拠）
+- 録音前の本人同意取得が必須（FR-09 参照）
 
 ### DynamoDB を選んだ理由
 - サーバーレス構成（Lambda）との完全な整合性
@@ -130,9 +132,28 @@ Nova Sonic（初代・Nova 2 Sonic）は音声→音声の一体型モデルで�
 
 ---
 
+## AI 機能の失敗時挙動（フォールバック設計）
+
+実サービス品質を保つため、AI パイプライン各段の失敗時挙動を設計する。
+
+| 失敗ケース | フォールバック | ユーザー通知 |
+|---|---|---|
+| クローンボイス生成失敗（ElevenLabs） | 通常 TTS（Amazon Polly）へフォールバックして対話継続 | 「クローンボイスを再生成できます」のリトライ導線 |
+| AI 応答が遅い（5 秒超） | ローディング文言・スピナー表示 | 「考えています...」 |
+| 録音品質が低い（無音・低音量・高ノイズ） | クライアント側で判定し再録音を案内 | 「もう少し大きな声で／静かな場所で再録音してください」 |
+| STT 失敗（Transcribe） | テキスト入力モードへ切り替え | 「音声認識ができませんでした。テキスト入力に切り替えますか？」 |
+| LLM エラー（Bedrock スロットリング等） | エラーメッセージ＋リトライボタン | 「混み合っています。もう一度お試しください」 |
+| WebSocket 切断 | 自動再接続を最大 3 回試行 | 切断バナー → 再接続成功時に解除 |
+| 外部 API（ElevenLabs）レート制限 | キューに溜めて非同期処理。完了時にメール通知 | 「クローンボイスを準備中です。完了次第お知らせします」 |
+
+詳細は [要件定義書 NFR-07](../requirements/requirements.md#nfr-07-ai-機能の失敗時挙動フォールバック) を参照。
+
+---
+
 ## MVP スコープ外（フェーズ2以降）
 
 - BtoB 管理ダッシュボード（US-301〜303）
+- 組織テンプレート編集・一括招待・企業単位の自動リマインド配信
 - Amazon SNS によるプッシュ通知
 - スマートフォンアプリ（iOS/Android）
 - スマートデバイス連携

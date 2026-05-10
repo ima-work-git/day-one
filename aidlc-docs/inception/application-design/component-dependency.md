@@ -5,7 +5,7 @@
 | 依存元 → 依存先 | C-01 Frontend | C-02 REST API | C-03 AI Pipeline | C-04 WebSocket | C-05 S3 | C-06 DynamoDB | C-07 Cognito | C-08 SES |
 |---|---|---|---|---|---|---|---|---|
 | **C-01 Frontend** | — | ✅ REST | — | ✅ WS | ✅ Presigned | — | ✅ Auth | — |
-| **C-02 REST API** | — | — | ✅ 非同期起動 | — | ✅ Presigned URL | ✅ CRUD | ✅ JWT検証 | ✅ 招待メール |
+| **C-02 REST API** | — | — | ✅ 非同期起動 | — | ✅ Presigned URL | ✅ CRUD | ✅ JWT検証 | △ 招待メール（フェーズ2） |
 | **C-03 AI Pipeline** | — | — | — | ✅ 音声送信 | ✅ 音声取得 | ✅ 記録取得 | — | ✅ 完了通知 |
 | **C-04 WebSocket** | — | — | ✅ 対話処理 | — | — | ✅ セッション管理 | ✅ JWT検証 | — |
 | **C-05 S3** | — | — | — | — | — | — | — | — |
@@ -67,6 +67,13 @@ C-01 Frontend（音声再生）
 ### フロー3: リマインド通知
 
 ```
+MVP:
+運営者が研修用リンクまたは簡易メールを手動共有
+    |
+    v
+ユーザー → C-01 Frontend → フロー2（対話セッション）
+
+フェーズ2:
 Amazon EventBridge Scheduler
     |
     | スケジュール時刻に Lambda 起動
@@ -84,7 +91,7 @@ C-08 SES + Lambda
 C-01 Frontend → フロー2（対話セッション）
 ```
 
-### フロー4: BtoB 従業員招待
+### フロー4: BtoB 従業員招待（フェーズ2）
 
 ```
 C-01 Frontend（管理者）
@@ -132,4 +139,4 @@ C-02 REST API
 | **WebSocket（双方向）** | フロントエンド ↔ WebSocket API（リアルタイム音声対話） |
 | **S3 Presigned URL** | フロントエンド → S3（メディアアップロード・ダウンロード） |
 | **非同期（Lambda 直接起動）** | REST API → AI Pipeline（クローンボイス生成） |
-| **EventBridge → Lambda** | スケジューラー → 通知サービス（リマインド） |
+| **EventBridge → Lambda** | スケジューラー → 通知サービス（MVPは個人簡易リマインド、BtoB一括リマインドはフェーズ2） |
